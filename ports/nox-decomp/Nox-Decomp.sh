@@ -109,6 +109,8 @@ install() {
 
     if [ ! -f "$NEEDED" ]; then
       pm_message "Extraction failed"
+      pm_message "Put Nox files in:"
+      pm_message "$GAMEDIR/gamefiles/"
       sleep 5
       exit 1
     fi
