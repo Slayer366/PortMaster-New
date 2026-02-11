@@ -5,14 +5,11 @@ Your name is Jack Mower, a 20th century dude who just happened to be sucked into
 The world is in danger and you have to save it! But before you embark on your epic 
 journey you must choose your path: warrior, wizard, or conjurer.
 
-Unofficial **Nox (2000)** port to Linux based on decompiled code from playnox.xyz.
+Unofficial **Nox (2000)** port to Linux based on decompiled code from playnox.xyz and neuromancer/nox-decomp.
 
-This is the version with all the patches needed to make it work well.
 [sookyboo/nox-decomp](https://github.com/sookyboo/nox-decomp)
 
-Used this archived project [neuromancer/nox-decomp](https://github.com/neuromancer/nox-decomp) as a starting point.
-
-Single player and multiplayer on the internet and LAN work great!
+Single player (all classes) and multiplayer on the internet and LAN work great!
 
 
 > **Note:** This project does **not** include any Nox game assets. You must own a legitimate copy of Nox to play.
@@ -81,6 +78,7 @@ Extraction of the GOG installer will take around 10 minutes and conversion of th
   -   Render Bubbles (in mana and health viles)
   -   Draw Front Walls (I prefer this off)
   -   Translucent Front Walls
+-   If you want to save your graphics settings exit the game from the menus not the **Select** + **Start** shortcut (after saving your config you can exit with the shortcut)  
 -   Save often using **Start + Right D-Pad** and load often with **Start + Left D-Pad**.
 -   Running into things like chests, doors, switches, tree stumps will open them.
 -   If inventory / book / merchant / video is open press **Select** to exit any of them quickly. 
@@ -104,6 +102,8 @@ Extraction of the GOG installer will take around 10 minutes and conversion of th
 -   Look for tree stumps, secret walls and areas - they often reward you with items/gold that can help you finish the level or game.
 -   Different merchants have different prices - keep your original shirt and use it to compare selling prices at different merchants to get the best deal.
 -   Later in the game it is possible to set traps and these are sometimes useful for tough enemies but not always.
+-   There are versions of Nox-Decomp available for SteamDeck, Windows and Docker images for servers [sookyboo/nox-decomp](https://github.com/sookyboo/nox-decomp). 
+-   Full controller mapping listing below
 
 ## Crash debuging 
 
