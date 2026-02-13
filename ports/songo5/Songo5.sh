@@ -1,4 +1,5 @@
 #!/bin/bash
+# PORTMASTER: songo5.zip, Songo5.sh
 
 # PortMaster preamble
 XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
@@ -18,7 +19,7 @@ get_controls
 # Adjust these to your paths and desired godot version
 GAMEDIR=/$directory/ports/songo5
 
-runtime="sbc_4_3_rcv7"
+runtime="sbc_4_3_rcv8"
 #godot_executable="godot43.$DEVICE_ARCH"
 pck_filename="Songo5.pck"
 gptk_filename="songo5.gptk"
@@ -38,12 +39,35 @@ fi
 
 echo "LOOKING FOR CFW_NAME ${CFW_NAME}"
 export CFW_NAME
+echo "LOOKING FOR DEVICE ID ${DEVICE_NAME}"
+export DEVICE_NAME
 
 # Create directory for save files
 CONFDIR="$GAMEDIR/conf/"
 $ESUDO mkdir -p "${CONFDIR}"
 
+# For knulli lid switch override
+sh "${GAMEDIR}/runtime/setup_batocera_override" "${GAMEDIR}/runtime"
+
+# Setup volume indicator
+USE_SONGO_VOL_TCP_SERVER="0"
+SONGO_CFW_NAME="NONE"
+if [[ "$CFW_NAME" = "muOS" ]] || [[ "$CFW_NAME" = "knulli" ]] || [[ "$CFW_NAME" = "ROCKNIX" ]]; then
+	SONGO_CFW_NAME="${CFW_NAME}"
+fi
+if [[ "$CFW_NAME" = "TrimUI" ]]; then
+	if [ -f /mnt/SDCARD/.system/version.txt ] && grep -q "NextUI" /mnt/SDCARD/.system/version.txt; then
+		SONGO_CFW_NAME="NextUI"
+	fi
+fi
+
+if [[ "$SONGO_CFW_NAME" != "NONE" ]]; then
+	USE_SONGO_VOL_TCP_SERVER="1"
+fi
+export USE_SONGO_VOL_TCP_SERVER
+sh "${GAMEDIR}/runtime/volume-indicator/setup_vol_indicator" "${SONGO_CFW_NAME}"
 cd $GAMEDIR
+
 
 # Set the XDG environment variables for config & savefiles
 export XDG_DATA_HOME="$CONFDIR"
@@ -82,9 +106,35 @@ else
 	echo "reset_values.sh not found"
 fi
 
-3
+
 #if [[ "$PM_CAN_MOUNT" != "N" ]]; then
 #$ESUDO umount "${godot_dir}"
 #fi
+
+# Teardown volume indicator
+sh "${GAMEDIR}/runtime/volume-indicator/teardown_vol_indicator" "${SONGO_CFW_NAME}"
+
+# Remove lid switch overrides if applied (EG: for rg35xx-SP)
+TARGETS=(
+	"/boot/boot/batocera.board.capability" # Knulli approach to lid inhibit
+    "/sys/class/power_supply/axp2202-battery/hallkey" # RG35xx-SP, RG34xx-SP
+    "/sys/devices/platform/hall-mh248/hallvalue"      # Miyoo Flip
+)
+
+for TARGET in "${TARGETS[@]}"; do
+    # Skip if the target doesn't exist
+    [ -e "$TARGET" ] || continue
+
+    # Loop until no mounts remain at this target
+    while mountpoint -q "$TARGET"; do
+        # Lazy unmount to handle busy sysfs
+        if umount -l "$TARGET" 2>/dev/null; then
+            echo "Unmounted hallkey override: $TARGET"
+        else
+            echo "Failed to unmount (maybe not mounted or busy): $TARGET"
+            break
+        fi
+    done
+done
 
 pm_finish

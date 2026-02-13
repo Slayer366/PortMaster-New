@@ -11,7 +11,7 @@
     "porter": [
       "Riley"
     ],
-    "desc": "A music player app focused on a clean and fast UI/UX. Currently supporting Mp3, Flac, and Ogg.",
+    "desc": "A music player app focused on a clean and fast UI/UX. Now supporting all major audio formats.",
     "desc_md": null,
     "inst": "After installation just ensure you have your music somewhere on your device. Start up the app and go to settings to tell Songo where your music is stored. After this it will scan that directory for new music on startup.",
     "inst_md": null,
