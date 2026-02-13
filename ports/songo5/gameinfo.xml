@@ -3,7 +3,7 @@
   <game>
     <path>./Songo5.sh</path>
     <name>Songo #5</name>
-    <desc>A music player app focused on a clean and fast UI/UX. Currently supporting Mp3, Flac, and Ogg.</desc>
+    <desc>A music player app focused on a clean and fast UI/UX. Now supporting all major audio formats.</desc>
     <releasedate>20260128T000000</releasedate>
     <developer>Riley</developer>
     <publisher>Riley</publisher>
