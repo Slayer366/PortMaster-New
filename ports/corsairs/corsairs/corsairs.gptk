@@ -8,7 +8,7 @@ a = a
 b = b
 x = tab
 y = space
-start = return
+start = enter
 select = backspace
 
 l1 = pageup

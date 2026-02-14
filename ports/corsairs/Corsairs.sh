@@ -1,6 +1,4 @@
 #!/bin/bash
-# ABOUTME: PortMaster launch script for Corsairs J2ME game.
-# ABOUTME: Sets up environment, starts gptokeyb, and runs the game via JDK 11.
 
 XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 
@@ -20,59 +18,34 @@ source $controlfolder/control.txt
 get_controls
 
 GAMEDIR="/$directory/ports/corsairs"
-LOGFILE="$GAMEDIR/corsairs.log"
 cd "$GAMEDIR"
 
-exec > "$LOGFILE" 2>&1
-set -x
+> "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
 
-# JDK 11 runtime managed by PortMaster
-: "${HOME:=/root}"
-RUNTIME="zulu11.48.21-ca-jdk11.0.11-linux_${DEVICE_ARCH}"
-JAVA_HOME="$HOME/${RUNTIME}"
+# Mount JDK 11 runtime
+export JAVA_HOME="/tmp/javaruntime/"
 $ESUDO mkdir -p "${JAVA_HOME}"
 
-if [ ! -f "$controlfolder/libs/${RUNTIME}.squashfs" ]; then
-  if [ -f "$controlfolder/harbourmaster" ]; then
-    $ESUDO $controlfolder/harbourmaster --quiet --no-check runtime_check "${RUNTIME}.squashfs"
+java_runtime="zulu11.48.21-ca-jdk11.0.11-linux"
+if [ ! -f "$controlfolder/libs/${java_runtime}.squashfs" ]; then
+  if [ ! -f "$controlfolder/harbourmaster" ]; then
+    pm_message "This port requires the latest PortMaster to run, please go to https://portmaster.games/ for more info."
+    sleep 5
+    exit 1
   fi
-fi
-
-if [ ! -f "$controlfolder/libs/${RUNTIME}.squashfs" ]; then
-  pm_message "JDK 11 runtime not available. Check your internet connection and try again."
-  sleep 5
-  pm_finish
-  exit 1
+  $ESUDO $controlfolder/harbourmaster --quiet --no-check runtime_check "${java_runtime}.squashfs"
 fi
 
 if [[ "$PM_CAN_MOUNT" != "N" ]]; then
   $ESUDO umount "${JAVA_HOME}" 2>/dev/null
 fi
-
-$ESUDO mount "$controlfolder/libs/${RUNTIME}.squashfs" "${JAVA_HOME}"
-
-JAVA="$JAVA_HOME/bin/java"
-if [ ! -x "$JAVA" ]; then
-  pm_message "JDK 11 runtime failed to mount. Try restarting."
-  sleep 5
-  $ESUDO umount "${JAVA_HOME}" 2>/dev/null
-  pm_finish
-  exit 1
-fi
-
-export LD_LIBRARY_PATH="$GAMEDIR/libs.${DEVICE_ARCH}:$JAVA_HOME/lib:$JAVA_HOME/lib/server:$LD_LIBRARY_PATH"
-export JAVA_HOME
+$ESUDO mount "$controlfolder/libs/${java_runtime}.squashfs" "${JAVA_HOME}"
 export PATH="$JAVA_HOME/bin:$PATH"
 
-# SDL2 environment for KMSDRM
+export LD_LIBRARY_PATH="$GAMEDIR/libs.${DEVICE_ARCH}:$JAVA_HOME/lib:$JAVA_HOME/lib/server:$LD_LIBRARY_PATH"
 export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
-export SDL_VIDEO_DRIVER=kmsdrm
 
-# Start gptokeyb for gamepad-to-keyboard mapping
-$GPTOKEYB "java" -c "$GAMEDIR/corsairs.gptk" &
-
-pm_platform_helper "$JAVA"
-
+# Find the original game JAR
 GAME_JAR=""
 EXPECTED_MD5="921bf6964df2d1668d75c946c2736062"
 
@@ -97,7 +70,11 @@ if [ -z "$GAME_JAR" ]; then
   exit 1
 fi
 
-$JAVA \
+$GPTOKEYB2 "java" -c "$GAMEDIR/corsairs.gptk" > /dev/null &
+
+pm_platform_helper "$JAVA_HOME/bin/java"
+
+$JAVA_HOME/bin/java \
   -Djava.awt.headless=true \
   -Djava.library.path="$GAMEDIR/libs.${DEVICE_ARCH}" \
   -Dcorsairs.data.dir="$GAMEDIR/savedata" \

@@ -18,6 +18,6 @@ Thanks to **Akella** for the original game.
 
 ## How It Works
 
-The original J2ME bytecode runs unmodified on a compatibility shim that implements the MIDP 2.0 / CLDC 1.1 APIs using Java AWT in headless mode. The game renders to a `BufferedImage` (208x208), which is sent to the screen via a small C JNI library that uses SDL2 with the KMSDRM backend.
+The original J2ME bytecode runs unmodified on a compatibility shim that implements the MIDP 2.0 / CLDC 1.1 APIs using Java AWT in headless mode. The game renders to a `BufferedImage` (208x208), which is sent to the screen via a small C JNI library that uses SDL2.
 
 This port uses the SDL2 library, licensed under the zlib license. Source code is available at https://github.com/libsdl-org/SDL
