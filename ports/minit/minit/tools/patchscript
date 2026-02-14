@@ -99,4 +99,3 @@ if ! process_game; then
 else
     echo "Patching process complete!"
 fi
-
