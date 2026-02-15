@@ -8,7 +8,6 @@ b = b
 x = tab
 y = space
 start = enter
-select = backspace
 
 l1 = pageup
 r1 = pagedown
