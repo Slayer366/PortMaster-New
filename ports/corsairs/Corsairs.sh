@@ -70,7 +70,7 @@ if [ -z "$GAME_JAR" ]; then
   exit 1
 fi
 
-$GPTOKEYB2 "java" -c "$GAMEDIR/corsairs.gptk" > /dev/null &
+$GPTOKEYB "java" -c "$GAMEDIR/corsairs.gptk" &
 
 pm_platform_helper "$JAVA_HOME/bin/java"
 

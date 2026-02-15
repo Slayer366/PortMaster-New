@@ -3,7 +3,6 @@
 
 back = q
 
-[controls]
 a = a
 b = b
 x = tab
