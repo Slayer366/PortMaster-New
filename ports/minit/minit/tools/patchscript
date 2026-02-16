@@ -85,11 +85,10 @@ zip_archive() {
 
 process_game() {
     echo "Preparing game..."
-    prepare_files || { patch_failure; return 1; }
-
+    prepare_files || patch_failure
     sleep 1
     echo "Finishing up..."
-    zip_archive || { patch_failure; return 1; }
+    zip_archive || patch_failure
 }
 
 # Call the function
