@@ -1,29 +1,30 @@
 {
-  "version": 2,
-  "name": "gravitycircuit.zip",
-  "items": [
-    "Gravity Circuit.sh",
-    "gravitycircuit"
-  ],
-  "items_opt": [],
-  "attr": {
-    "title": "Gravity Circuit",
-    "porter": [
-      "Kompaan",
-      "Wark91"
+    "version": 2,
+    "name": "gravitycircuit.zip",
+    "items": [
+        "Gravity Circuit.sh",
+        "gravitycircuit"
     ],
-    "desc": "Gravity Circuit - a flashy action packed 2d platformer in the spirit of console classics.",
-    "inst": "Drop GravityCircuit.exe from either your GOG or Steam copy of the game into /roms/ports/gravitycircuit/gamedata",
-    "genres": [
-      "platformer"  
-    ],
-    "image": null,
-    "rtr": false,
-    "exp": false,
-    "runtime": null,
-    "reqs": [],
-    "arch": [
-      "aarch64"
-    ]
-  }
+    "items_opt": null,
+    "attr": {
+        "title": "Gravity Circuit",
+        "porter": [
+            "Kompaan",
+            "Wark91"
+        ],
+        "desc": "Gravity Circuit - a flashy action packed 2d platformer in the spirit of console classics.",
+        "inst": "Drop GravityCircuit.exe from either your Epic, GOG or Steam copy of the game into /roms/ports/gravitycircuit/gamedata",
+        "genres": [
+            "platformer"
+        ],
+        "image": {},
+        "rtr": false,
+        "exp": false,
+        "runtime": null,
+        "reqs": [],
+        "arch": [
+            "aarch64",
+            "x86_64"
+        ]
+    }
 }
