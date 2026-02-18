@@ -31,7 +31,7 @@ if [ -f "$GAMEFILE" ]; then
   if [ -f "$controlfolder/utils/patcher.txt" ]; then
     $ESUDO chmod a+x "$TOOLDIR/patchscript"
     source "$controlfolder/utils/patcher.txt"
-    $ESUDO kill -9 $(pidof gptokeyb)
+    pm_gptokeyb_finish
   else
     pm_message "This port requires the latest PortMaster to run, please go to https://portmaster.games/ for more info."
   fi
