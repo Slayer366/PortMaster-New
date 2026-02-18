@@ -34,6 +34,8 @@ if [ -f "$GAMEFILE" ]; then
     pm_gptokeyb_finish
   else
     pm_message "This port requires the latest PortMaster to run, please go to https://portmaster.games/ for more info."
+    sleep 5
+    exit
   fi
 fi
 
