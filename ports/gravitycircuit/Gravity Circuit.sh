@@ -18,7 +18,6 @@ get_controls
 
 GAMEDIR="/$directory/ports/gravitycircuit"
 TOOLDIR=$GAMEDIR/tools
-export controlfolder
 > "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
 
 cd $GAMEDIR
@@ -28,6 +27,7 @@ GAMEFILE="./gamedata/GravityCircuit.exe"
 if [ -f "$GAMEFILE" ]; then
   export PATCHER_FILE="$TOOLDIR/patchscript"
   export PATCHER_TIME="2-5 minutes"
+  export controlfolder
   if [ -f "$controlfolder/utils/patcher.txt" ]; then
     $ESUDO chmod a+x "$TOOLDIR/patchscript"
     source "$controlfolder/utils/patcher.txt"
