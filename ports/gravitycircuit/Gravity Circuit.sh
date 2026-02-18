@@ -43,7 +43,6 @@ export XDG_DATA_HOME="$GAMEDIR/conf" # allowing saving to the same path as the g
 export LD_LIBRARY_PATH="$GAMEDIR/libs:$LD_LIBRARY_PATH"
 mkdir -p "$XDG_DATA_HOME"
 
-pm_message "Loading game.."
 cd $GAMEDIR
 # Source love2d runtime
 source $controlfolder/runtimes/"love_11.5"/love.txt
