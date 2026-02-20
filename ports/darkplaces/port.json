@@ -19,7 +19,7 @@
     ],
     "desc": "DarkPlaces is a Quake engine source port by LadyHavoc that has greatly improved graphics and image quality. The realism of shell casings falling to the floor, much improved bullet impacts, 32bit color alpha blended explosions, blood flying everywhere and sticking to the walls...",
     "desc_md": null,
-    "inst": "You will need to populate the id1, hipnotic, rogue, and dopa directories with your pak files and music tracks.  Details can be found in the included text documents.  The shareware version of Quake is included, but most expansions and mods will require the full registered version.",
+    "inst": "You will need to populate the id1, hipnotic, rogue, and dopa directories with your pak files and music tracks. Details can be found in the included text documents. The shareware version of Quake is included, but most expansions and mods will require the full registered version.",
     "inst_md": null,
     "genres": [
       "action",

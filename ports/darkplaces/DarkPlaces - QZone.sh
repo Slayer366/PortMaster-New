@@ -20,16 +20,9 @@ to_lower_case() {
     find "$1" -depth \( -name "*.PAK" -o -name "PAK0.pak" \) | while IFS= read -r SRC; do
         DST=$(dirname "$SRC")/$(basename "$SRC" | tr '[:upper:]' '[:lower:]')
         TMP_DST=$(dirname "$SRC")/temp_$(basename "$SRC" | tr '[:upper:]' '[:lower:]')
-        echo "SRC: $SRC"
-        echo "DST: $DST"
-        echo "TMP_DST: $TMP_DST"
         if [ "$SRC" != "$DST" ]; then
-            echo "Renaming $SRC to $TMP_DST"
             $ESUDO mv -vf "$SRC" "$TMP_DST"
-            echo "Renaming $TMP_DST to $DST"
             $ESUDO mv -vf "$TMP_DST" "$DST"
-        else
-            echo "- $SRC is already lowercase"
         fi
     done
 }
